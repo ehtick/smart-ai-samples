@@ -1,6 +1,5 @@
 using Syncfusion.Blazor.Spreadsheet;
 using Syncfusion.Blazor.InteractiveChat;
-using Syncfusion.Blazor.Navigations;
 using Markdig;
 using System.Text.RegularExpressions;
 using Syncfusion.XlsIO;
@@ -13,7 +12,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         #region Constants
         private const string SidebarTargetSelector = ".maincontent";
         #endregion
-
         #region Private Fields
         private SfSpreadsheet? _spreadsheetInstance;
         private Syncfusion.Blazor.Navigations.SfSidebar? _sidebarRef;
@@ -22,20 +20,12 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private bool _isLoading;
         private string _jsonOutput = string.Empty;
         private string _usedRange = string.Empty;
-        
-        private readonly List<string> _promptSuggestions = new()
-        {
-            "Highlight top 5 highest sales in Amount",
-            "Replace Credit Card with Gift Card and highlight",
-            "Bold the header row and apply a light background",
-        };
-
+        private readonly List<string> _promptSuggestions = new(){"Highlight top 5 highest sales in Amount", "Replace Credit Card with Gift Card and highlight", "Bold the header row and apply a light background",};
         /// <summary>
         /// Gets or sets the Excel file data used as the spreadsheet data source.
         /// </summary>
         private byte[] DataSourceBytes { get; set; } = null!;
         #endregion
-
         #region Lifecycle Methods
         /// <summary>
         /// Component initialization logic (loads initial spreadsheet data).
@@ -45,7 +35,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             LoadInitialSpreadsheetData();
         }
         #endregion
-
         #region Data Loading Methods
         /// <summary>
         /// Loads the initial Excel data from file.
@@ -59,7 +48,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
         }
         #endregion
-
         #region AI AssistView Event Handlers
         /// <summary>
         /// Handles prompt requests from the AI AssistView and processes the response.
@@ -68,21 +56,16 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private async Task OnPromptRequestedAsync(AssistViewPromptRequestedEventArgs args)
         {
             await ShowLoadingStateAsync();
-
             string response = string.Empty;
             var aiRawValue = await OpenAIService.GetCompletionAsync(args.Prompt + _jsonOutput, false);
-
             if (!string.IsNullOrEmpty(aiRawValue) && _spreadsheetInstance is not null)
             {
                 string htmlResponse = string.Empty;
-                var cellUpdateMatches = Regex.Matches(aiRawValue, "\"(?<cell>[A-Za-z]+[0-9]+)\"\\s*:\\s*\\{[^}]*\\}", 
-                    RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
+                var cellUpdateMatches = Regex.Matches(aiRawValue, "\"(?<cell>[A-Za-z]+[0-9]+)\"\\s*:\\s*\\{[^}]*\\}", RegexOptions.IgnoreCase | RegexOptions.Singleline);
                 if (cellUpdateMatches.Count > 0)
                 {
                     htmlResponse = await ProcessCellUpdatesAsync(cellUpdateMatches);
                 }
-
                 string rendered = Markdown.ToHtml(aiRawValue);
                 if (!string.IsNullOrEmpty(htmlResponse))
                 {
@@ -90,10 +73,8 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
                 }
                 response = rendered;
             }
-
             await UpdateAssistViewResponseAsync(args, response);
         }
-
         /// <summary>
         /// Handles toolbar item clicks in the AssistView.
         /// </summary>
@@ -107,7 +88,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             return Task.CompletedTask;
         }
         #endregion
-
         #region AI Button Click Event Handlers
         /// <summary>
         /// Analyzes the full sheet data and displays an AI-generated summary.
@@ -115,19 +95,14 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private async Task OnFullSheetAnalysisAsync()
         {
             ExtractUsedRange();
-
             if (_spreadsheetInstance is null)
             {
                 return;
             }
-
             var cellData = _spreadsheetInstance.GetData(_usedRange);
             _jsonOutput = SerializeCellData(cellData);
-
             string prompt = $"Analyze the full data in this data. {_jsonOutput}";
-
             await PrepareAssistViewAsync();
-
             string result = await OpenAIService.GetCompletionAsync(prompt, false);
             if (!string.IsNullOrEmpty(result))
             {
@@ -136,7 +111,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
         }
         #endregion
-
         #region Helper Methods - Cell Processing
         /// <summary>
         /// Processes cell updates from AI response matches.
@@ -146,21 +120,17 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private async Task<string> ProcessCellUpdatesAsync(MatchCollection cellUpdateMatches)
         {
             var htmlResponse = string.Empty;
-
             foreach (Match cellMatch in cellUpdateMatches)
             {
                 var cellAddress = cellMatch.Groups["cell"].Value;
                 var cellPayload = cellMatch.Value;
-
                 string? newCellValue = ExtractCellValue(cellPayload);
-
                 if (!string.IsNullOrEmpty(newCellValue))
                 {
                    string sheetName =  _spreadsheetInstance!.GetActiveWorksheet().Name;
                     await _spreadsheetInstance!.UpdateCellAsync($"{sheetName}!{cellAddress}", newCellValue);
                     htmlResponse += $"<div class=\"ai-note\">Updated {cellAddress}.</div>";
                 }
-
                 var styleFormat = ExtractAndBuildCellStyle(cellPayload);
                 if (styleFormat != null)
                 {
@@ -168,10 +138,8 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
                     htmlResponse += $"<div class=\"ai-note\">Applied style to {cellAddress}.</div>";
                 }
             }
-
             return htmlResponse;
         }
-
         /// <summary>
         /// Extracts cell value from cell payload.
         /// </summary>
@@ -184,7 +152,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             {
                 return formulaMatch.Groups["formula"].Value;
             }
-
             var valueMatch = Regex.Match(cellPayload, "\"value\"\\s*:\\s*(?<val>null|\"[^\"]*\")", RegexOptions.IgnoreCase);
             if (valueMatch.Success)
             {
@@ -198,10 +165,8 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
                     return raw;
                 }
             }
-
             return null;
         }
-
         /// <summary>
         /// Extracts and builds cell style from cell payload.
         /// </summary>
@@ -209,19 +174,15 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         /// <returns>CellFormat object or null.</returns>
         private CellFormat? ExtractAndBuildCellStyle(string cellPayload)
         {
-            var styleObjectMatch = Regex.Match(cellPayload ?? string.Empty, 
-                "\"style\"\\s*:\\s*\\{(?<props>[\\s\\S]*?)\\}", RegexOptions.IgnoreCase);
-            
+            var styleObjectMatch = Regex.Match(cellPayload ?? string.Empty, "\"style\"\\s*:\\s*\\{(?<props>[\\s\\S]*?)\\}", RegexOptions.IgnoreCase);           
             if (styleObjectMatch.Success)
             {
                 var styleProps = styleObjectMatch.Groups["props"].Value;
                 return BuildCellFormatFromAi(styleProps);
             }
-
             return null;
         }
         #endregion
-
         #region Helper Methods - Style Building
         /// <summary>
         /// Builds a CellFormat object from AI-generated style properties.
@@ -234,10 +195,8 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             {
                 return null;
             }
-
             var format = new CellFormat();
             var hasAnyStyle = false;
-
             hasAnyStyle |= ApplyBackgroundColor(format, styleProperties);
             hasAnyStyle |= ApplyFontColor(format, styleProperties);
             hasAnyStyle |= ApplyFontSize(format, styleProperties);
@@ -245,7 +204,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             hasAnyStyle |= ApplyFontStyles(format, styleProperties);
             hasAnyStyle |= ApplyTextAlignment(format, styleProperties);
             hasAnyStyle |= ApplyVerticalAlignment(format, styleProperties);
-
             return hasAnyStyle ? format : null;
         }
 
@@ -258,8 +216,7 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             if (!backgroundMatch.Success)
             {
                 backgroundMatch = Regex.Match(styleProperties, "background(?:\\s*color)?\\s*(?:to|:)?\\s*(?<c>#?[A-Za-z0-9]+)", RegexOptions.IgnoreCase);
-            }
-            
+            }        
             if (backgroundMatch.Success)
             {
                 format.BackgroundColor = ConvertToHexColor(backgroundMatch.Groups["c"].Value);
@@ -277,8 +234,7 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             if (!fontColorMatch.Success)
             {
                 fontColorMatch = Regex.Match(styleProperties, "font\\s*color\\s*(?:to|:)?\\s*(?<c>#?[A-Za-z0-9]+)", RegexOptions.IgnoreCase);
-            }
-            
+            }           
             if (fontColorMatch.Success)
             {
                 format.Color = ConvertToHexColor(fontColorMatch.Groups["c"].Value);
@@ -307,7 +263,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
             return false;
         }
-
         /// <summary>
         /// Applies font family to the cell format.
         /// </summary>
@@ -317,8 +272,7 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             if (!fontFamilyMatch.Success)
             {
                 fontFamilyMatch = Regex.Match(styleProperties, "font\\s*family\\s*(?:to|:)?\\s*(?<f>[A-Za-z]+)", RegexOptions.IgnoreCase);
-            }
-            
+            }          
             if (fontFamilyMatch.Success)
             {
                 var family = fontFamilyMatch.Groups["f"].Value;
@@ -337,28 +291,23 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private bool ApplyFontStyles(CellFormat format, string styleProperties)
         {
             var hasStyle = false;
-
             if (Regex.IsMatch(styleProperties, "\"bold\"\\s*:\\s*true|\\bbold\\b", RegexOptions.IgnoreCase))
             {
                 format.FontWeight = FontWeight.Bold;
                 hasStyle = true;
-            }
-            
+            }           
             if (Regex.IsMatch(styleProperties, "\"italic\"\\s*:\\s*true|\\bitalic\\b", RegexOptions.IgnoreCase))
             {
                 format.FontStyle = FontStyle.Italic;
                 hasStyle = true;
-            }
-            
+            }           
             if (Regex.IsMatch(styleProperties, "\"underline\"\\s*:\\s*true|\\bunderline\\b", RegexOptions.IgnoreCase))
             {
                 format.TextDecoration = TextDecoration.Underline;
                 hasStyle = true;
             }
-
             return hasStyle;
         }
-
         /// <summary>
         /// Applies text alignment to the cell format.
         /// </summary>
@@ -372,7 +321,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
             return false;
         }
-
         /// <summary>
         /// Applies vertical alignment to the cell format.
         /// </summary>
@@ -385,8 +333,7 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
                 if (v.Equals("middle", StringComparison.OrdinalIgnoreCase))
                 {
                     v = "Middle";
-                }
-                
+                }              
                 if (Enum.TryParse<VerticalAlign>(v, true, out var parsedVAlign))
                 {
                     format.VerticalAlign = parsedVAlign;
@@ -395,7 +342,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
             return false;
         }
-
         /// <summary>
         /// Converts color names to hex color codes.
         /// </summary>
@@ -407,42 +353,24 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             if (string.IsNullOrEmpty(normalizedValue))
             {
                 return normalizedValue;
-            }
-            
+            }           
             if (normalizedValue.StartsWith("#"))
             {
                 return normalizedValue;
             }
-
-            var colorMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"red", "#FF0000"},
-                {"blue", "#2196F3"},
-                {"yellow", "#FFEB3B"},
-                {"white", "#FFFFFF"},
-                {"black", "#000000"},
-                {"green", "#4CAF50"},
-                {"gray", "#4B5366"},
-                {"grey", "#4B5366"}
+            var colorMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase){{"red", "#FF0000"},{"blue", "#2196F3"},{"yellow", "#FFEB3B"},{"white", "#FFFFFF"},{"black", "#000000"},{"green", "#4CAF50"},{"gray", "#4B5366"},{"grey", "#4B5366"}
             };
-
             return colorMap.TryGetValue(normalizedValue, out var hex) ? hex : normalizedValue;
         }
         #endregion
-
         #region Helper Methods - UI State
         /// <summary>
         /// Shows the loading state in the AssistView.
         /// </summary>
         private async Task ShowLoadingStateAsync()
         {
-            await InvokeAsync(() =>
-            {
-                _isLoading = true;
-                StateHasChanged();
-            });
+            await InvokeAsync(() =>{_isLoading = true;StateHasChanged();});
         }
-
         /// <summary>
         /// Prepares the AssistView for displaying results.
         /// </summary>
@@ -453,12 +381,10 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
                 _isAssistVisible = false;
                 await Task.Delay(150);
             }
-            
             _isAssistVisible = true;
             _isLoading = true;
             await InvokeAsync(StateHasChanged);
         }
-
         /// <summary>
         /// Displays the AI response in the AssistView.
         /// </summary>
@@ -472,7 +398,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             }
             await InvokeAsync(StateHasChanged);
         }
-
         /// <summary>
         /// Updates the AssistView with the AI response.
         /// </summary>
@@ -492,7 +417,6 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
             });
         }
         #endregion
-
         #region Helper Methods - Data Processing
         /// <summary>
         /// Extracts the used range from the active worksheet.
@@ -500,15 +424,13 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private void ExtractUsedRange()
         {
             var workBookProperty = typeof(SfSpreadsheet).GetProperty("WorkBook", BindingFlags.NonPublic | BindingFlags.Instance);
-            int sheetIndex = _spreadsheetInstance!.GetActiveWorksheet().Index;
-            
+            int sheetIndex = _spreadsheetInstance!.GetActiveWorksheet().Index;          
             if (workBookProperty?.GetValue(_spreadsheetInstance) is IWorkbook workbook)
             {
                 var worksheet = workbook.Worksheets[sheetIndex];
                 _usedRange = worksheet.UsedRange.AddressLocal;
             }
         }
-
         /// <summary>
         /// Serializes cell data to JSON format.
         /// </summary>
@@ -516,10 +438,7 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         /// <returns>JSON string representation of the cell data.</returns>
         private string SerializeCellData(object cellData)
         {
-            return System.Text.Json.JsonSerializer.Serialize(cellData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true })
-                .Replace("```json", string.Empty)
-                .Replace("```", string.Empty)
-                .Trim();
+            return System.Text.Json.JsonSerializer.Serialize(cellData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }).Replace("```json", string.Empty).Replace("```", string.Empty).Trim();
         }
         #endregion
     }

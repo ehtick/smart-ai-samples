@@ -372,7 +372,11 @@ For more insights, refer [here](SyncfusionAISamples/Components/Pages/ImageEditor
 
 ### Spreadsheet
 
-The **Syncfusion Blazor Spreadsheet** offers a sample Smart Spreadsheet with intelligent features designed to simplify how users work with worksheet data. Key functionalities include the AI Assistant for analyzing and interacting with active worksheets using natural-language prompts, Analysis for generating summaries and formula suggestions, advanced **Cell Editing** and **Cell Formatting** tools for precise data manipulation and polished presentation.
+The **Syncfusion Blazor Spreadsheet** offers a sample Smart Spreadsheet with intelligent features designed to simplify how users work with worksheet data. Key functionalities include an AI Assistant for analyzing and interacting with active worksheets using natural-language prompts, analysis for generating summaries and formula suggestions, and advanced **Cell Editing** and **Cell Formatting** tools for precise data manipulation and polished presentation.
+
+Note: the "AI-powered Spreadsheet" assistant in this sample is implemented via external AI integration and is not a built-in feature of the Syncfusion Spreadsheet control. See the repository configuration instructions for how to register and configure AI providers.
+
+**Platform:** Blazor (Syncfusion Blazor components).
 
 #### Smart Spreadsheet
 
@@ -563,8 +567,8 @@ This table provides an overview of all the AI Samples in this project, along wit
         </tr>
         <tr>
             <td><strong>Spreadsheet</strong></td>
-            <td>Smart Spreadsheet</td>
-            <td>Smart Spreadsheet: AI Assistant with natural-language analysis, plus advanced cell editing and cell formatting for precise data manipulation.</td>
+            <td>Smart Spreadsheet (AI-powered)</td>
+            <td>AI-powered Smart Spreadsheet: AI Assistant with natural-language analysis, plus advanced cell editing and cell formatting for precise data manipulation.</td>
             <td><a href="SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md">Read More</a></td>
         </tr>
     </tbody>

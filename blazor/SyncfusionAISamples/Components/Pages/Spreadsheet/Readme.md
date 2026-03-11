@@ -2,9 +2,11 @@
 
 ## Overview
 
-This sample demonstrates how the **Syncfusion Spreadsheet**, enhanced with AI, provides an intelligent assistant to help users analyze and interact with worksheet data using natural language prompts.
+This sample demonstrates how the **Syncfusion Blazor Spreadsheet** , when integrated with an AI(smart) powered assistant, provides an intelligent assistant to help users analyze and interact with worksheet data using natural language prompts. 
 
-### Smart Spreadsheet with AI Assistant
+**Platform:** Blazor (Syncfusion Blazor components). This sample targets the Blazor platform and demonstrates how to integrate an external AI service with the Syncfusion Spreadsheet component.
+
+###  AI-powered Spreadsheet
 
 In this example, the Spreadsheet component is integrated with an AI-powered assistant that enables users to:
 
