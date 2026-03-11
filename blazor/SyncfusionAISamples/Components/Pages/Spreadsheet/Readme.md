@@ -1,4 +1,4 @@
-# Syncfusion Blazor Spreadsheet - AI-powered Spreadsheet with AI Assistant
+# Syncfusion Blazor Spreadsheet - AI-powered Spreadsheet with Interactive Assistant
 
 ## Overview
 
