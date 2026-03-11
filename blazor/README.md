@@ -568,7 +568,7 @@ This table provides an overview of all the AI Samples in this project, along wit
         <tr>
             <td><strong>Spreadsheet</strong></td>
             <td>Spreadsheet (AI-powered)</td>
-            <td>AI-powered Smart Spreadsheet: AI Assistant with natural-language analysis, plus advanced cell editing and cell formatting for precise data manipulation.</td>
+            <td>AI-powered Spreadsheet: AI Assistant with natural-language analysis, plus advanced cell editing and cell formatting for precise data manipulation.</td>
             <td><a href="SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md">Read More</a></td>
         </tr>
     </tbody>
