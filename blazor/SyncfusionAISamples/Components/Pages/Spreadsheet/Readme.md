@@ -1,8 +1,8 @@
-# Syncfusion Blazor Spreadsheet - Smart Spreadsheet with AI Assistant
+# Syncfusion Blazor Spreadsheet - AI-powered Spreadsheet with AI Assistant
 
 ## Overview
 
-This sample demonstrates how the **Syncfusion Blazor Spreadsheet** , when integrated with an AI(smart) powered assistant, provides an intelligent assistant to help users analyze and interact with worksheet data using natural language prompts. 
+This sample demonstrates how the **Syncfusion Blazor Spreadsheet**, when integrated with an AI-powered assistant, provides an intelligent assistant to help users analyze and interact with worksheet data using natural language prompts.
 
 **Platform:** Blazor (Syncfusion Blazor components). This sample targets the Blazor platform and demonstrates how to integrate an external AI service with the Syncfusion Spreadsheet component.
 
@@ -22,12 +22,12 @@ The AI assistant appears in a side panel when the "AI Assist" button is clicked,
 
 - **Natural Language Processing**: Interact with your spreadsheet data using conversational prompts
 - **Automated Cell Formatting**: Apply colors, fonts, alignment, and other styles based on AI recommendations
-- **Smart Data Updates**: Update cell values programmatically through AI guidance
+- **AI-driven Data Updates**: Update cell values programmatically through AI guidance
 - **Prompt Suggestions**: Built-in suggestions help users get started with common tasks
 
 ## How It Works
 
-The Smart Spreadsheet uses AI to analyze the current worksheet data when the "AI Assist" floating action button is clicked. The AI processes the data and provides:
+This AI-powered Spreadsheet analyzes the current worksheet data when the "AI Assist" floating action button is clicked. The AI processes the data and provides:
 
 1. **Initial Analysis**: A comprehensive summary of the worksheet highlighting key patterns, trends
 

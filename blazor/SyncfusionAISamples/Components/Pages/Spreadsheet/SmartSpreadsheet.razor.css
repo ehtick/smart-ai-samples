@@ -1,5 +1,3 @@
-
-
 .banner-loading {
     display: flex;
     align-items: center;
@@ -7,50 +5,50 @@
     padding: 8px 12px;
 }
 
-    .banner-loading .spinner {
-        width: 28px;
-        height: 18px;
-        border-radius: 50%;
-        background: linear-gradient(90deg,#eee,#ddd,#eee);
-        animation: spin 1s linear infinite;
-    }
+.banner-loading .spinner {
+    width: 28px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #eee, #ddd, #eee);
+    animation: spin 1s linear infinite;
+}
 
-    .banner-loading .simmer {
-        height: 24px;
-        width: 160px;
-        border-radius: 4px;
-        background: linear-gradient(90deg,#f2f2f2,#e9e9e9,#f2f2f2);
-        background-size: 200px 100%;
-        animation: simmer 1.2s linear infinite;
-    }
+.banner-loading .simmer {
+    height: 24px;
+    width: 160px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f2f2f2, #e9e9e9, #f2f2f2);
+    background-size: 200px 100%;
+    animation: simmer 1.2s linear infinite;
+}
 
 .banner-loading-large {
     padding: 16px 18px;
     gap: 12px;
 }
 
-    .banner-loading-large .spinner {
-        width: 46px;
-        height: 46px;
-    }
+.banner-loading-large .spinner {
+    width: 46px;
+    height: 46px;
+}
 
-    .banner-loading-large .banner-loading-body {
-        display: flex;
-        flex-direction: column;
-    }
+.banner-loading-large .banner-loading-body {
+    display: flex;
+    flex-direction: column;
+}
 
-        .banner-loading-large .banner-loading-body .label {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--bs-body-color,#222);
-            margin-bottom: 6px;
-        }
+.banner-loading-large .banner-loading-body .label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--bs-body-color, #222);
+    margin-bottom: 6px;
+}
 
-    .banner-loading-large .simmer {
-        height: 28px;
-        width: 220px;
-        border-radius: 6px;
-    }
+.banner-loading-large .simmer {
+    height: 28px;
+    width: 220px;
+    border-radius: 6px;
+}
 
 .fab-hover .text-container {
     overflow: hidden;
