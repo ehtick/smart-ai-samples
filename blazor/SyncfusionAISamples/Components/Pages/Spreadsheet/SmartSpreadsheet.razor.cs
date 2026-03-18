@@ -27,18 +27,12 @@ namespace SyncfusionAISamples.Components.Pages.Spreadsheet
         private byte[] DataSourceBytes { get; set; } = null!;
         #endregion
         #region Lifecycle Methods
-        /// <summary>
-        /// Component initialization logic (loads initial spreadsheet data).
-        /// </summary>
         protected override void OnInitialized()
         {
             LoadInitialSpreadsheetData();
         }
         #endregion
         #region Data Loading Methods
-        /// <summary>
-        /// Loads the initial Excel data from file.
-        /// </summary>
         private void LoadInitialSpreadsheetData()
         {
             const string filePath = "wwwroot/Data/spreadsheet/smartspreadsheet.xlsx";

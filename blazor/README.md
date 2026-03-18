@@ -374,11 +374,11 @@ For more insights, refer [here](SyncfusionAISamples/Components/Pages/ImageEditor
 
 The **Syncfusion Blazor Spreadsheet** offers a sample AI powered Spreadsheet with intelligent features designed to simplify how users work with worksheet data. Key functionalities include an AI Assistant for analyzing and interacting with active worksheets using natural-language prompts, analysis for generating summaries and formula suggestions, and advanced **Cell Editing** and **Cell Formatting** tools for precise data manipulation and polished presentation.
 
-Note: the "AI-powered Spreadsheet" assistant in this sample is implemented via external AI integration and is not a built-in feature of the Syncfusion Spreadsheet control. See the repository configuration instructions for how to register and configure AI providers.
+Note: the "AI (smart) powered Spreadsheet" assistant in this sample is implemented via external AI integration and is not a built-in feature of the Syncfusion Spreadsheet control. See the repository configuration instructions for how to register and configure AI providers.
 
 **Platform:** Blazor (Syncfusion Blazor components).
 
-#### AI powered Spreadsheet
+#### AI (smart) powered Spreadsheet
 
 ![Gif image of Spreadsheet component](SyncfusionAISamples/wwwroot/gif-images/smart-spreadsheet/smart-spreadsheet.gif)
 For more insights, refer [here](SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md).
