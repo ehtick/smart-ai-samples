@@ -1,0 +1,105 @@
+@page "/spreadsheet/smart-spreadsheet"
+
+@using Syncfusion.Blazor.Spreadsheet
+@using System
+@using SyncfusionAISamples.Service
+@inject AzureAIService OpenAIService
+@using System.IO
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.InteractiveChat
+@using Syncfusion.Blazor.Navigations
+@using Markdig
+@using System.Reflection
+@using System.Text.RegularExpressions
+@using System.Collections.Generic
+@using Syncfusion.XlsIO
+
+<title>Syncfusion - AI-powered Spreadsheet with interactive assistant</title>
+
+<h4 style="text-align:center;">AI-powered Spreadsheet with interactive assistant</h4>
+
+<div id="container">
+    <Description>
+        <p>This sample demonstrates how the AI-enhanced Syncfusion Spreadsheet provides an intelligent assistant to analyze and interact with worksheet data using natural language prompts. The AI can summarize data, answer questions, apply formatting, and update cell values automatically. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md">here</a>.</p>
+    </Description>
+
+    <div class="col-lg-12 control-section">
+        <div class="content-wrapper">
+            <div class="row">
+                @if (!_isAssistVisible)
+                {
+                    <SfFab id="fab" Target="#Spreadsheet" Position="FabPosition.BottomRight" CssClass="fab-hover" IconCss="e-icons e-assistview-icon" OnClick="OnFullSheetAnalysisAsync">
+                        <span class="text-container"><span class="textEle">AI Assist</span></span>
+                    </SfFab>
+                }
+                <div style="position:relative;">
+                    
+                    <SfSpreadsheet id="Spreadsheet" @ref=_spreadsheetInstance DataSource="DataSourceBytes">
+                        <SpreadsheetRibbon></SpreadsheetRibbon>
+                    </SfSpreadsheet>
+
+                    <SfSidebar @ref="_sidebarRef" @bind-IsOpen="_isAssistVisible" Position="SidebarPosition.Right" Type="SidebarType.Over" Width="35%" Target="@SidebarTargetSelector">
+                        @if (_isAssistVisible)
+                        {
+                            <SfAIAssistView @ref=_assistView Height="100%" Width="100%" ShowHeader="true" CssClass="ai-assist-pane" Prompt="Type your prompt for assistance..." PromptSuggestions="@_promptSuggestions" ResponseIconCss="e-icons e-bullet-4" PromptRequested="@OnPromptRequestedAsync">
+                                <ChildContent>
+                                    <AssistViews>
+                                        <AssistView Header="AI Assist">
+                                            <BannerTemplate>
+                                                @if (_isLoading)
+                                                {
+                                                    <div class="banner-loading banner-loading-large">
+                                                        <div class="spinner" aria-hidden="true"></div>
+                                                        <div class="banner-loading-body">
+                                                            <div class="simmer" aria-hidden="true"></div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <AssistViewToolbar ItemClicked="OnToolbarItemClickedAsync">
+                                                    <AssistViewToolbarItem Type="Syncfusion.Blazor.Navigations.ItemType.Spacer"></AssistViewToolbarItem>
+                                                    <AssistViewToolbarItem Type="Syncfusion.Blazor.Navigations.ItemType.Button" IconCss="e-icons e-close" Tooltip="Close" />
+                                                </AssistViewToolbar>
+                                            </BannerTemplate>
+                                        </AssistView>
+                                    </AssistViews>
+                                </ChildContent>
+                            </SfAIAssistView>
+                        }
+                    </SfSidebar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .ai-assist-sidebar {
+        box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+    }
+
+    .ai-assist-pane,
+    .e-aiassistview {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+        .e-aiassistview .e-footer,
+        .e-aiassistview .e-footer .e-input,
+        .e-aiassistview .e-footer textarea,
+        .e-aiassistview .e-footer .e-input-group {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .e-aiassistview .e-footer {
+            padding: 8px;
+            width: 90% !important;
+            max-width: 90% !important;
+        }
+
+            .e-aiassistview .e-footer.e-toolbar-inline.e-footer-focus-wave-effect {
+                width: 90% !important;
+            }
+</style>
+    
