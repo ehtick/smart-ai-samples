@@ -11,7 +11,7 @@ export const gridRoutes:Routes  = [
 {
     path: 'grid/anamoly-detection',component: AnomalyDetectionComponent
 },
-{ path: 'grid/semantic-search',component: DataTrendAnalysisComponent},{
+{ path: 'grid/semantic-search',component: SemanticSearchComponent},{
     path: 'grid/predictive-data-entry',component: PredictiveDataentryComponent
 },{
     path: 'grid/data-trend-analysis',component: DataTrendAnalysisComponent
