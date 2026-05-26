@@ -13,12 +13,15 @@ Supported AI capabilities include:
 ## Example Use Cases
 
 1. **Professional Communication**
+
    Refine emails or reports by adjusting the tone to be more professional or standard, and ensure perfect grammar before sharing.
 
 2. **Content Condensing**
+
    Quickly generate summaries of long articles or meeting notes directly within the editor, saving time in information processing.
 
 3. **Writing Assistance**
+
    Overcome writer's block by using the "Elaborate" feature to expand on bullet points or the "Rephrase" feature to find better ways to express ideas.
 
 ## Adding Syncfusion Smart Rich Text Editor in Blazor
@@ -26,9 +29,12 @@ Supported AI capabilities include:
 ### Prerequisites
 
 1. **Install the Syncfusion SmartRichTextEditor Package**
-   Ensure that the `Syncfusion.Blazor.SmartRichTextEditor` NuGet package is installed in your Blazor project.
 
-2. **Configure AI Services** open your `Program.cs` file and add the following code. Replace the placeholders with your actual API credentials.
+Ensure that the `Syncfusion.Blazor.SmartRichTextEditor` NuGet package is installed in your Blazor project.
+
+2. **Configure AI Services**
+
+   To configure AI services, open your `Program.cs` file and add the following code. Replace the placeholders with your actual API credentials.
 
    ```csharp
     using Syncfusion.Blazor;
@@ -114,7 +120,7 @@ The **AI Query** feature allows for flexible, free-form interaction. Users can s
 For detailed information on customizing the Smart RichTextEditor, please refer to the following guide:
 
 * [Property Configuration](https://blazor.syncfusion.com/documentation/smart-rich-text-editor/property)
-* [Methods](https://blazor.syncfusion.com/documentation/smart-rich-text-editor/methods)
+* [Methods](https://blazor.syncfusion.com/documentation/smart-rich-text-editor/method)
 * [Events](https://blazor.syncfusion.com/documentation/smart-rich-text-editor/events)
 * [Appearance](https://blazor.syncfusion.com/documentation/smart-rich-text-editor/appearance)
 

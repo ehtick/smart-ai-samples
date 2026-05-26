@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Components;
 using Syncfusion.Blazor.RichTextEditor;
 
 namespace SyncfusionAISamples.Components.Pages.SmartRichTextEditor
 {
-    public partial class SmartRichTextEditor : ComponentBase
+    public partial class SmartRichTextEditor
     {
         private List<ToolbarItemModel> TextQuickToolbarItems = new List<ToolbarItemModel>()
         {
