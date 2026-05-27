@@ -18,6 +18,11 @@ namespace SyncfusionAISamples.Components.Layout
         },
         new MenuItem
         {
+            Text = "Smart Rich Text Editor",
+            Href = "smartrichtexteditor"
+        },
+        new MenuItem
+        {
             Text = "Charts",
             SubMenu = new List<MenuItem>
             {

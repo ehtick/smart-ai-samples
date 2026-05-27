@@ -1,0 +1,40 @@
+@page "/smartrichtexteditor"
+
+@using Syncfusion.Blazor.SmartRichTextEditor
+@using Syncfusion.Blazor.RichTextEditor
+
+<div class="col-lg-12 control-section" id="default">
+    <div class="content-wrapper">
+        <SfSmartRichTextEditor>
+            <p><strong>Editing and Improving</strong></p>
+            <p>
+                In today's competitive landscape, effective marketing focuses on building lasting customer relationships
+                rather than just selling products. Brands are expected to provide personalized experiences through data
+                analytics and consumer insights. As expectations evolve, marketers must stay agile and proactive in their
+                strategies.
+            </p>
+            <p><strong>Tone and style</strong></p>
+            <p>
+                Agile methodologies are essential in modern project management, particularly in software development.
+                They enable teams to adapt quickly and deliver greater customer value through iterative processes and
+                collaboration. Successful Agile implementation requires fostering a culture of adaptability, trust,
+                and shared ownership.
+            </p>
+            <p><strong>Grammar</strong></p>
+            <p>
+                Strong leadership is more than directing a team-it's about inspiring people toward a common vision.
+                Effective leaders cultivate transparency, empathy, and accountability within their organizations.
+                They empower others by encouraging autonomy and providing opportunities for growth. In times of
+                uncertainty or rapid change, it's the leaders who stay grounded and lead with clarity who build the
+                most resilient and high-performing teams.
+            </p>
+            <p><strong>Summarization, simplification, or elaboration</strong></p>
+            <p>
+                Strong leadership inspires a team toward a shared vision while promoting transparency, empathy,
+                and accountability. Effective leaders empower others through autonomy and growth. In times of
+                uncertainty or change, clear leaders build resilient, high-performing teams.
+            </p>
+            <RichTextEditorQuickToolbarSettings Text="@TextQuickToolbarItems"></RichTextEditorQuickToolbarSettings>
+        </SfSmartRichTextEditor>
+    </div>
+</div>
