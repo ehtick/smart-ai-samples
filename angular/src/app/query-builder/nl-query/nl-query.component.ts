@@ -56,6 +56,9 @@ export class NlQueryComponent {
   }
 
   generateQuery(): void {
+    if (!this.qryBldrObj) {
+      return;
+    }
     showSpinner(document.getElementById('grid') as HTMLElement);
      let textArea =`Given the following input: "write SQL query to` +  (document.querySelector('#text-area') as any).value +`I need to get sql query without changing the given values", generate an SQL query that matches the requirement similar to the example output. The output should be in the format: "SELECT * FROM user WHERE credits > 100".`;
     //let textArea = "write SQL query to " + (document.querySelector('#text-area') as any).value + " from the single table without changing the given values";
